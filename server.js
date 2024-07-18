@@ -7,13 +7,12 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  const fullUrl = req.url.slice(1);
-  const vscodePrefix = 'vscode://';
-  
-  if (fullUrl.startsWith(vscodePrefix)) {
-    const vscodeUrl = fullUrl;
-    console.log(`Redirecting to: ${vscodeUrl}`);
-    res.redirect(vscodeUrl);
+  const fullLink = req.url.slice(1);
+  const vscodePrefix = "vscode:/";
+  if (fullLink.startsWith(vscodePrefix)) {
+    const vscodeLink = fullLink.replace('vscode:/', 'vscode://');
+    console.log(`Redirecting to: ${vscodeLink}`);
+    res.redirect(vscodeLink);
   } else {
     res.status(400).send('Invalid VSCode URL format');
   }
